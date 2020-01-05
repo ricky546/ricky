@@ -1,66 +1,71 @@
 data = [40, 20, 80, 70, 76, 99, 100, 44, 22, 22]
 
 
-def bubbleSort(el):
-    n = len(el)
+def bubbleSort(arr):
+    x = arr
+    n = len(x)
     sorted_data = []
     for i in range(n):
         for j in range(0, n-i-1):
-            if el[j] > el[j+1]:
-                el[j], el[j+1] = el[j+1], el[j]
+            if x[j] > x[j+1]:
+                x[j], x[j+1] = x[j+1], x[j]
 
     for i in range(n):
-        # print("%d" % el[i])
-        sorted_data.append(el[i])
+        sorted_data.append(x[i])
     print("Sorted array is: ", sorted_data)
 
 
-def shellSort(el):
-    n = len(el)
+def shellSort(arr):
+    x = arr
+    n = len(x)
     gap = n//2
-    sorted_data = []
-
     while gap > 0:
         for i in range(gap, n):
-            temp = el[i]
+            temp = x[i]
             j = i
-            while j >= gap and el[j-gap] > temp:
-                el[j] = el[j-gap]
+            while j >= gap and x[j-gap] > temp:
+                x[j] = x[j-gap]
                 j -= gap
-            el[j] = temp
+            x[j] = temp
         gap //= 2
-
-        for i in range(n):
-            sorted_data.append(el[i])
-    print("Sorted array is: ", sorted_data)
+    return x
 
 
 def qsort(arr):
-    if len(arr) <= 1:
-        return arr
+    new_arr = arr
+    if len(new_arr) <= 1:
+        return new_arr
     else:
-        return qsort([x for x in arr[1:] if x < arr[0]]) + \
-            [arr[0]] + \
-            qsort([x for x in arr[1:] if x >= arr[0]])
+        return qsort([x for x in new_arr[1:] if x < new_arr[0]]) + \
+            [new_arr[0]] + \
+            qsort([x for x in new_arr[1:] if x >= new_arr[0]])
 
 
 option = True
+print("Data source: ", data)
 while option:
-    print("Data source: ", data)
     print("""
     1.Quick Sort
     2.Shell Sort
     3.Bubble Sort
     4.exit
     """)
-    option = input("Pilihlah salah satu metode sorting diatas: [1/2/3/4] ")
+    option = input("Pilihlah salah satu metode sorting di atas: [1/2/3/4] ")
     if option == "3":
         bubbleSort(data)
     elif option == "2":
         shellSort(data)
+        sorted_data = []
+        for i in range(len(data)):
+            sorted_data.append(data[i])
+        print("Sorted array is: ", sorted_data)
     elif option == "1":
         print("Sorted array is: ", qsort(data))
     elif option == "4":
         print("\n goodbye")
+        break
     elif option != "":
         print("\n Not Valid Choice Try again")
+
+# Question?
+# Why after running shellshort, the data source changed?
